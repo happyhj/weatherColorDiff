@@ -1,0 +1,169 @@
+@font-face {
+    font-family: 'MeteoconsRegular';
+    src: url('../img/meteocons-webfont.woff') format('woff');
+	src: url('../img/meteocons-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+.icon {
+font-family: 'MeteoconsRegular';
+font-size:70px;
+}
+body,html{
+	height:100%;
+	margin: 0;
+}
+div { cursor: pointer; }
+div.content{
+	width: 100%;
+	height: 100%;
+	color: white;
+	font-family: Helvetica;
+	font-size: 105px;
+	
+}
+div.box{
+	position: absolute;
+	margin: 0;
+	display: block;
+	width:50%;
+	height:50%;
+}
+
+div.odd{
+	background-color: black;
+}
+div.even{
+	background-color: white;
+	
+}
+div#box1{
+	top:0px;
+	left:0px;
+}
+div#box2{
+	top:0px;
+	left:50%;
+}
+div#box3{
+	top:50%;
+	left:0px;
+}
+div#box4{
+	top:50%;
+	left:50%;	
+}
+div.arrow-left {
+	position: absolute;
+	width:0px; 
+	height:0px; 
+	border-bottom:60px solid transparent;  /* left arrow slant 밑의 중심에서 끌까지의 길이*/
+	border-top:60px solid transparent; /* right arrow slant */
+	border-right:60px solid #2f2f2f; /* bottom, add background color here 높이*/
+	font-size:0px;
+	line-height:0px;
+	-webkit-transform:rotate(45deg);	
+	box-shadow: 0 4px 3px rgba(0,0,0,0.7);
+
+}
+
+.dateContainer {
+	position: absolute;
+	top:0px;
+	width: 40%;
+	text-shadow: 0 0 0.2em rgba(0,0,0,0.7);
+	font-size: 30px;
+}
+
+.rightCorner{
+	right:0px;
+	text-align: right;
+}
+.rightCorner p{
+	margin-right: 10px;
+	margin-top:5px;
+}
+
+.leftCorner{
+	left:0px;
+	text-align: left;
+}
+.leftCorner p{
+	margin-left: 10px;
+	margin-top:5px;
+}
+
+
+.weatherInfoContainer {
+	position: absolute;
+	width: 60%;
+	height: 60%;
+	overflow: hidden;
+	top:16%;
+	left: 50%;
+	margin-left: -30%;
+}
+.weatherIcon {
+	display:inline-block;
+	text-align: center;
+	position: absolute;
+	top: 0px;	
+	height: 60%;
+	width:100%;
+}
+.weatherIcon .big{
+font-size: 200px;
+margin-top: -100px;
+text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
+}
+.degreeContainer{
+	position: absolute;
+	bottom: 20%;
+	height: 20%;
+	width:100%;
+	text-align: center;
+	font-size:50px;
+	text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
+
+}
+.rainPercent{
+	position: absolute;
+	width:100%;
+	bottom: 11%;
+	height: 10%;	
+	text-align: center;
+	font-size:60px;
+	vertical-align:text-top;
+	
+	padding-top: 10px;
+}
+
+
+
+.wind{
+	position: absolute;
+	width:100%;
+	bottom: 1%;
+	height: 10%;
+	text-align: center;
+	font-size:60px;
+
+	padding-top: 10px;
+
+}	
+
+
+.pageContainer {
+	width: 100%;
+}
+
+.weatherPage {
+	color: white;
+	overflow: hidden;	
+	background-color: rgba(65,49,168,1);;
+}
+#presentPage {
+	background-color: rgb(240,210,0);
+
+}
+
