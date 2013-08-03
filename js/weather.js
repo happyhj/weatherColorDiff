@@ -95,7 +95,7 @@ function showWeather(position)
 		dataType: "jsonp",
 		success: function(forecastData){
 			$("#loadingPage").css("display","none");
-		
+	
 			//로컬스토리지에 예보정보 저장
 			localStorage.setItem('forecastData', JSON.stringify(forecastData));
 			printWeatherComponents();
