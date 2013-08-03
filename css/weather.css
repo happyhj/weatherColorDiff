@@ -13,46 +13,20 @@ body,html{
 	height:100%;
 	margin: 0;
 }
-div { cursor: pointer; }
-div.content{
-	width: 100%;
-	height: 100%;
-	color: white;
-	font-family: Helvetica;
-	font-size: 105px;
-	
-}
-div.box{
+#loadingPage {
 	position: absolute;
-	margin: 0;
-	display: block;
-	width:50%;
-	height:50%;
+	z-index: 20;
+	height:100%;
+	width:100%;
+	background-color: rgba(0,0,0,0.8);
+	text-align: center;
+}
+#loadingPage h1{
+	font-size: 50px;
+	margin-top:45%;
+	color: white;	
 }
 
-div.odd{
-	background-color: black;
-}
-div.even{
-	background-color: white;
-	
-}
-div#box1{
-	top:0px;
-	left:0px;
-}
-div#box2{
-	top:0px;
-	left:50%;
-}
-div#box3{
-	top:50%;
-	left:0px;
-}
-div#box4{
-	top:50%;
-	left:50%;	
-}
 div.arrow-left {
 	position: absolute;
 	width:0px; 

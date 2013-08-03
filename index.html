@@ -33,6 +33,9 @@
 	<body>
 		<div class="container">
 			<div>
+				<div id="loadingPage">
+					<h1>날씨정보를<br/>가져옵니다...</h1>
+				</div>
 				<div class="weatherPage invisiblePage" id="presentPage">
 					<div class="pageContainer">
 						<div class="dateContainer rightCorner">
@@ -57,7 +60,7 @@
 						</div>
 					</div>
 				</div>		
-				<div class="weatherPage" id="day1Page">
+				<div class="weatherPage invisiblePage" id="day1Page">
 					<div class="arrow-left">
 					</div>
 					<div class="shadow-left">
@@ -212,7 +215,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="controlContainer">
+				<div class="controlContainer invisiblePage">
 					<div id="magnifier" class="dragdealer rounded-cornered">
 						<div class="red-bar handle">날짜슬라이더</div>
 					</div>
