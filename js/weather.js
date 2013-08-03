@@ -23,6 +23,7 @@ window.onload = function()
 				  $("#day4Page").attr("class","weatherPage invisiblePage");
 				  $("#day5Page").attr("class","weatherPage invisiblePage");
 				  $("div.controlContainer").css("background-color",$("#presentPage").css("background-color"));
+
 				  break;
 				case 2:
 				  $("#presentPage").attr("class","weatherPage invisiblePage");
@@ -145,6 +146,10 @@ function updateWeatherPage(dayNumber, sPageId,forecastData){
 	var temperature = present['temperatureMax'];
 	var greenScale = 210-(temperature-20)*8;
 	$(sPageId).css("background-color","rgb(240,"+String(greenScale)+",0)");
+	
+	// 접힌부분 색깔, 크기 조정
+	$(sPresentPage+" div.shadow-left").css("height",String($(document).width()/2.5+5)+"px");
+	$(sPresentPage+" div.shadow-left").css("background-color",$(sPresentPage).css("background-color"));
 }
 
 function extractWeatherInfo(forecastData,date){
@@ -209,13 +214,13 @@ function resizeComponents(){
 	$("div.arrow-left").css("border-bottom",String(radiuOfTriangle) + "px solid transparent");
 	$("div.arrow-left").css("border-top",String(radiuOfTriangle) + "px solid transparent");
 	$("div.arrow-left").css("border-right",String(radiuOfTriangle) + "px solid #2f2f2f");
-	 
+	// 구석삼각형 위치 설정	 
 	$("div.arrow-left").css("margin-top", String(vertivalShiftCoefficient*2)+"px");
 	$("div.arrow-left").css("margin-left", horizontalShiftCoefficient.toString()+"px");
-	
-	// 현재 날씨 삼각형 색 조정
+	// 구석삼각형 색 설정	 
 	var greenScale2 = 210-(localStorage.getItem('today_temp')-20)*8;
 	$("div.arrow-left").css("border-right-color","rgb(240,"+String(greenScale2)+",0)");	
+
 
 	// 컨트롤파트 색설정			  
 	$("div.controlContainer").css("background-color",$("#presentPage").css("background-color"));

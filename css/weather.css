@@ -63,10 +63,23 @@ div.arrow-left {
 	font-size:0px;
 	line-height:0px;
 	-webkit-transform:rotate(45deg);	
-	box-shadow: 0 4px 3px rgba(0,0,0,0.7);
-
+	z-index: 13;
+}
+div.shadow-left {
+	position: absolute;
+	width:35%; 
+	background-color: aqua;
+	z-index: 10;
+	border: 5px solid rgba(255,255,255,0.5);	
+	margin-top: -5px;
+	margin-left: -5px;
+	
 }
 
+
+.dateContainer.leftCorner {
+	z-index: 15;	
+}
 .dateContainer {
 	position: absolute;
 	top:0px;
