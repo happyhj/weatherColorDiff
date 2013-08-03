@@ -13,18 +13,6 @@ body,html{
 	height:100%;
 	margin: 0;
 }
-#loadingPage {
-	position: absolute;
-	height:100%;
-	width:100%;
-	background-color: rgba(0,0,0,0.8);
-	text-align: center;
-}
-#loadingPage h1{
-	font-size: 50px;
-	margin-top:45%;
-	color: white;	
-}
 
 div.arrow-left {
 	position: absolute;
