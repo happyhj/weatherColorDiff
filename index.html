@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="stylesheet" type="text/css" href="css/reset.css" />
 <!-- jQuery 1.10.1 : Start -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <!-- jQuery 1.10.1 : End -->
 <script src="js/modernizr.custom.js"></script>
 <script src="js/noBounce.js" type="text/javascript"></script>
@@ -24,17 +24,13 @@
 <script src="js/weather.js"></script>
 
 		<title>오늘내일</title>
-		<link rel="stylesheet" type="text/css" href="css/default.css" />
-		<link rel="stylesheet" type="text/css" href="css/bookblock.css" />
-		<!-- custom demo style -->
-		<link rel="stylesheet" type="text/css" href="css/demo4.css" />
 		<link rel="stylesheet" type="text/css" href="css/weather.css" />
 
 	</head>
 	<body>
 		<div class="container">
 			<div>
-				<div class="weatherPage" id="presentPage">
+				<div class="weatherPage invisiblePage" id="presentPage">
 					<div class="pageContainer">
 						<div class="dateContainer rightCorner">
 							<p>오늘</p>
@@ -87,7 +83,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="weatherPage" id="day2Page">
+				<div class="weatherPage invisiblePage" id="day2Page">
 					<div class="arrow-left">
 					</div>
 					<div class="pageContainer">
@@ -116,7 +112,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="weatherPage" id="day3Page">
+				<div class="weatherPage invisiblePage" id="day3Page">
 					<div class="arrow-left">
 					</div>
 					<div class="pageContainer">
@@ -145,7 +141,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="weatherPage" id="day4Page">
+				<div class="weatherPage invisiblePage" id="day4Page">
 					<div class="arrow-left">
 					</div>
 					<div class="pageContainer">
@@ -174,7 +170,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="weatherPage" id="day5Page">
+				<div class="weatherPage invisiblePage" id="day5Page">
 					<div class="arrow-left">
 					</div>
 					<div class="pageContainer">
@@ -202,6 +198,8 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="controlContainer">
 				</div>
 			</div>
 
