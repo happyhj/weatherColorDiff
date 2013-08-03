@@ -1,10 +1,81 @@
 
 $(document).ready(function(){
 	resizeComponents();
-
 	// 자신의 위치를 가져와서 showWeather에 위치정보를 인자로 담아 실행시킨다.
 	getLocation();
+	
 });
+
+window.onload = function()
+{
+	new Dragdealer('magnifier',
+	{
+		steps: 6,
+		snap: true,
+		animationCallback: function(x, y)
+		{
+			switch(x*5+1) {
+				case 1:
+				  $("#presentPage").attr("class","weatherPage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");
+				  $("div.controlContainer").css("background-color",$("#presentPage").css("background-color"));
+				  break;
+				case 2:
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");				  
+				  $("div.controlContainer").css("background-color",$("#day1Page").css("background-color"));
+				  break;
+				case 3:
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");					  
+				  $("div.controlContainer").css("background-color",$("#day2Page").css("background-color"));
+				  break;
+				case 4:
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");					  
+				  $("div.controlContainer").css("background-color",$("#day3Page").css("background-color"));
+				  break;
+				case 5:
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");					  
+				  $("div.controlContainer").css("background-color",$("#day4Page").css("background-color"));
+				  break;
+				case 6:
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage");					  
+				  $("div.controlContainer").css("background-color",$("#day5Page").css("background-color"));
+				  break;
+				default:
+				  break;
+			}
+		}
+	});
+
+}
 
 function getLocation()
 {
@@ -31,7 +102,6 @@ function showWeather(position)
 		success: function(forecastData){
 			//로컬스토리지에 예보정보 저장
 			localStorage.setItem('forecastData', JSON.stringify(forecastData));
-			
 			printWeatherComponents();
 		}
 	});	
@@ -147,6 +217,8 @@ function resizeComponents(){
 	var greenScale2 = 210-(localStorage.getItem('today_temp')-20)*8;
 	$("div.arrow-left").css("border-right-color","rgb(240,"+String(greenScale2)+",0)");	
 
+	// 컨트롤파트 색설정			  
+	$("div.controlContainer").css("background-color",$("#presentPage").css("background-color"));
 	
 	// 개별페이지 크기 (컨트롤 파트제외)
 	$(".pageContainer").css("height",String($(window).height()-100)+ "px");

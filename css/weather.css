@@ -133,10 +133,8 @@ text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
 	bottom: 11%;
 	height: 10%;	
 	text-align: center;
-	font-size:60px;
-	vertical-align:text-top;
 	
-	padding-top: 10px;
+	
 }
 
 
@@ -147,9 +145,7 @@ text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
 	bottom: 1%;
 	height: 10%;
 	text-align: center;
-	font-size:60px;
 
-	padding-top: 10px;
 
 }	
 
@@ -178,11 +174,7 @@ text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
 	background-color: aqua;
 }
 
-/* 아이폰3g~4s */
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 480px) 
-and (orientation : portrait) { 
+
 	.dateContainer.leftCorner>p,.dateContainer.rightCorner>p{
 		font-size: 27px;
 	}
@@ -196,8 +188,8 @@ and (orientation : portrait) {
 		font-size: 23px;
 	}
 	div.rainPercent img,div.wind img {
-		height: 100px;
+		height: 18px;
 	}
-
-	
-}
+	div.controlContainer {
+		background-color: blue;
+	}
