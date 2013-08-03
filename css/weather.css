@@ -111,6 +111,7 @@ div.arrow-left {
 	height: 60%;
 	width:100%;
 }
+
 .weatherIcon .big{
 font-size: 200px;
 margin-top: -100px;
@@ -166,4 +167,37 @@ text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
 	background-color: rgb(240,210,0);
 
 }
+.invisiblePage {
+	display:none;
+}
+.controlContainer {
+	position: absolute;
+	bottom: 0px;
+	height: 100px;
+	width: 100%;
+	background-color: aqua;
+}
 
+/* 아이폰3g~4s */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) 
+and (orientation : portrait) { 
+	.dateContainer.leftCorner>p,.dateContainer.rightCorner>p{
+		font-size: 27px;
+	}
+	span.icon.big {
+		font-size: 140px;
+	}
+	span.degree {
+		font-size: 50px;
+	}
+	div.rainPercent span, div.wind span {
+		font-size: 23px;
+	}
+	div.rainPercent img,div.wind img {
+		height: 100px;
+	}
+
+	
+}
