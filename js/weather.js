@@ -26,10 +26,24 @@ var tempInfo = [];
 
 function showWeather(position)
 {
+	Date.prototype.yyyymmdd = function() {         
+	                                
+	        var yyyy = this.getFullYear().toString();                                    
+	        var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based         
+	        var dd  = this.getDate().toString();             
+	                            
+	        return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
+	   };  
+	
+	d = new Date();
+	var sD_1 = d.setDate(d.getDate()-1).yyyymmdd();
+	var sD_2 = d.setDate(d.getDate()-1).yyyymmdd();
+	var sD_3 = d.setDate(d.getDate()-1).yyyymmdd();
+
 	var sQuery = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+"?units=si";
-	var sQuery_past = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+",2013-08-23T12:00:00?units=si";
-	var sQuery_past2 = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+",2013-08-22T12:00:00?units=si";
-	var sQuery_past3 = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+",2013-08-21T12:00:00?units=si";
+	var sQuery_past = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+","+sD_1+"T12:00:00?units=si";
+	var sQuery_past2 = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+","+sD_2+"T12:00:00?units=si"
+	var sQuery_past3 = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+","+sD_3+"T12:00:00?units=si"
 	$.when(
 	$.ajax({ 
 		type: "GET",
