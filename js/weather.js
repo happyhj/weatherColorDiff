@@ -105,6 +105,7 @@ function showWeather(position)
 			//로컬스토리지에 예보정보 저장
 			localStorage.setItem('forecastData', JSON.stringify(forecastData));
 			printWeatherComponents();
+				resizeComponents();
 		}
 	});	
 
@@ -124,11 +125,12 @@ function printWeatherComponents(){
 	updateWeatherPage(4,"#day4Page",forecastData);
 	updateWeatherPage(5,"#day5Page",forecastData);
 
-	// 화면 콤포넌트 크기 조정
-	resizeComponents();
 	
  	$("div.controlContainer").attr("class","controlContainer");
+	$("div.controlContainer").css("background-color",$("#day5Page").css("background-color"));					  
 
+	// 화면 콤포넌트 크기 조정
+	resizeComponents();
 };
 	
 
@@ -230,6 +232,4 @@ function resizeComponents(){
 
 	// 개별페이지 크기 (컨트롤 파트제외)
 	$(".pageContainer").css("height",String($(window).height()-100)+ "px");
-
-
 }
