@@ -36,9 +36,12 @@ function showWeather(position)
 	   };  
 	
 	d = new Date();
-	var sD_1 = d.setDate(d.getDate()-1).yyyymmdd();
-	var sD_2 = d.setDate(d.getDate()-1).yyyymmdd();
-	var sD_3 = d.setDate(d.getDate()-1).yyyymmdd();
+	d.setDate(d.getDate()-1);
+	var sD_1 = d.yyyymmdd();
+	d.setDate(d.getDate()-1);
+	var sD_2 = d.yyyymmdd();
+	d.setDate(d.getDate()-1);
+	var sD_3 = d.yyyymmdd();
 
 	var sQuery = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+"?units=si";
 	var sQuery_past = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+","+sD_1+"T12:00:00?units=si";
