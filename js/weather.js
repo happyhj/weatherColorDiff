@@ -1,6 +1,5 @@
-
 $(document).ready(function(){
-//	resizeComponents();
+	resizeComponents();
 	// 자신의 위치를 가져와서 showWeather에 위치정보를 인자로 담아 실행시킨다.
 	getLocation();
 	
@@ -8,73 +7,6 @@ $(document).ready(function(){
 
 window.onload = function()
 {
-	new Dragdealer('magnifier',
-	{
-		steps: 6,
-		snap: true,
-		animationCallback: function(x, y)
-		{
-			switch(x*5+1) {
-				case 1:
-				  $("#presentPage").attr("class","weatherPage");
-				  $("#day1Page").attr("class","weatherPage invisiblePage");
-				  $("#day2Page").attr("class","weatherPage invisiblePage");
-				  $("#day3Page").attr("class","weatherPage invisiblePage");
-				  $("#day4Page").attr("class","weatherPage invisiblePage");
-				  $("#day5Page").attr("class","weatherPage invisiblePage");
-				  $("div.controlContainer").css("background-color",$("#presentPage").css("background-color"));
-
-				  break;
-				case 2:
-				  $("#presentPage").attr("class","weatherPage invisiblePage");
-				  $("#day1Page").attr("class","weatherPage");
-				  $("#day2Page").attr("class","weatherPage invisiblePage");
-				  $("#day3Page").attr("class","weatherPage invisiblePage");
-				  $("#day4Page").attr("class","weatherPage invisiblePage");
-				  $("#day5Page").attr("class","weatherPage invisiblePage");
-				  $("div.controlContainer").css("background-color",$("#day1Page").css("background-color"));				  
-				  break;
-				case 3:
-				  $("#presentPage").attr("class","weatherPage invisiblePage");
-				  $("#day1Page").attr("class","weatherPage invisiblePage");
-				  $("#day2Page").attr("class","weatherPage");
-				  $("#day3Page").attr("class","weatherPage invisiblePage");
-				  $("#day4Page").attr("class","weatherPage invisiblePage");
-				  $("#day5Page").attr("class","weatherPage invisiblePage");	
-				  $("div.controlContainer").css("background-color",$("#day2Page").css("background-color"));				  
-				  break;
-				case 4:
-				  $("#presentPage").attr("class","weatherPage invisiblePage");
-				  $("#day1Page").attr("class","weatherPage invisiblePage");
-				  $("#day2Page").attr("class","weatherPage invisiblePage");
-				  $("#day3Page").attr("class","weatherPage");
-				  $("#day4Page").attr("class","weatherPage invisiblePage");
-				  $("#day5Page").attr("class","weatherPage invisiblePage");	
-				  $("div.controlContainer").css("background-color",$("#day3Page").css("background-color"));				  
-				  break;
-				case 5:
-				  $("#presentPage").attr("class","weatherPage invisiblePage");
-				  $("#day1Page").attr("class","weatherPage invisiblePage");
-				  $("#day2Page").attr("class","weatherPage invisiblePage");
-				  $("#day3Page").attr("class","weatherPage invisiblePage");
-				  $("#day4Page").attr("class","weatherPage");
-				  $("#day5Page").attr("class","weatherPage invisiblePage");	
-				  $("div.controlContainer").css("background-color",$("#day4Page").css("background-color"));				  
-				  break;
-				case 6:
-				  $("#presentPage").attr("class","weatherPage invisiblePage");
-				  $("#day1Page").attr("class","weatherPage invisiblePage");
-				  $("#day2Page").attr("class","weatherPage invisiblePage");
-				  $("#day3Page").attr("class","weatherPage invisiblePage");
-				  $("#day4Page").attr("class","weatherPage invisiblePage");
-				  $("#day5Page").attr("class","weatherPage");
-				  $("div.controlContainer").css("background-color",$("#day5Page").css("background-color"));					  
-				  break;
-				default:
-				  break;
-			}
-		}
-	});
 
 }
 
@@ -95,19 +27,47 @@ var tempInfo = [];
 function showWeather(position)
 {
 	var sQuery = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+"?units=si";
-
-	$.ajax({
+	var sQuery_past = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+",2013-08-23T12:00:00?units=si";
+	var sQuery_past2 = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+",2013-08-22T12:00:00?units=si";
+	var sQuery_past3 = "https://api.forecast.io/forecast/29279b7685082aa05011a94496dd608f/"+position.coords.latitude+","+position.coords.longitude+",2013-08-21T12:00:00?units=si";
+	$.when(
+	$.ajax({ 
 		type: "GET",
 		url: sQuery,
-		dataType: "jsonp",
-		success: function(forecastData){
+		dataType: "jsonp"
+	}),$.ajax({ 
+		type: "GET",
+		url: sQuery_past,
+		dataType: "jsonp"		
+		
+	}),$.ajax({ 
+		type: "GET",
+		url: sQuery_past2,
+		dataType: "jsonp"		
+		
+	}),$.ajax({ 
+		type: "GET",
+		url: sQuery_past3,
+		dataType: "jsonp"		
+		
+	})).then(function (res1, res2, res3, res4) {		
+		//로컬스토리지에 예보정보 저장
+		localStorage.setItem('forecastData', JSON.stringify(res1[0]));
+//		alert(JSON.stringify(res2[0]['daily']['data']));
+
+
+		updateWeatherPage(0,"#day-1Page",res2[0]);
+		updateWeatherPage(0,"#day-2Page",res3[0]);
+		updateWeatherPage(0,"#day-3Page",res4[0]);
+		
+		printWeatherComponents();
+		resizeComponents();
+
+	})
 	
-			//로컬스토리지에 예보정보 저장
-			localStorage.setItem('forecastData', JSON.stringify(forecastData));
-			printWeatherComponents();
-				resizeComponents();
-		}
-	});	
+ 
+ 
+
 
 }
 
@@ -125,12 +85,155 @@ function printWeatherComponents(){
 	updateWeatherPage(4,"#day4Page",forecastData);
 	updateWeatherPage(5,"#day5Page",forecastData);
 
+
 	
  	$("div.controlContainer").attr("class","controlContainer");
-	$("div.controlContainer").css("background-color",$("#day5Page").css("background-color"));					  
-
+	$("div.controlContainer").css("background-color",$("#presentPage").css("background-color"));					  
 	// 화면 콤포넌트 크기 조정
 	resizeComponents();
+	
+	new Dragdealer('magnifier',
+	{
+		x: 3/9,
+		steps: 9,
+		snap: true,
+		animationCallback: function(x, y)
+		{
+			switch(x*8+1) {
+				case 1:
+				  $("#day-3Page").attr("class","weatherPage");
+				  $("#day-2Page").attr("class","weatherPage invisiblePage");
+				  $("#day-1Page").attr("class","weatherPage invisiblePage");
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");
+				  $("div.controlContainer").css("background-color",$("#day-3Page").css("background-color"));
+				  $(".red-bar.handle h1").html($("#day-3Page .dateContainer.rightCorner p:first-child").html());
+				  $(".red-bar-corner-label").html($("#day-3Page .dateContainer.leftCorner p").html());
+				  break;
+				case 2:
+				  $("#day-3Page").attr("class","weatherPage invisiblePage");
+				  $("#day-2Page").attr("class","weatherPage");
+				  $("#day-1Page").attr("class","weatherPage invisiblePage");
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");
+				  $("div.controlContainer").css("background-color",$("#day-2Page").css("background-color"));
+				  $(".red-bar.handle h1").html($("#day-2Page .dateContainer.rightCorner p:first-child").html());
+				  $(".red-bar-corner-label").html($("#day-2Page .dateContainer.leftCorner p").html());
+				  break;
+				case 3:
+				  $("#day-3Page").attr("class","weatherPage invisiblePage");
+				  $("#day-2Page").attr("class","weatherPage invisiblePage");
+				  $("#day-1Page").attr("class","weatherPage");
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");
+				  $("div.controlContainer").css("background-color",$("#day-1Page").css("background-color"));
+				  $(".red-bar.handle h1").html($("#day-1Page .dateContainer.rightCorner p:first-child").html());
+				  $(".red-bar-corner-label").html($("#day-1Page .dateContainer.leftCorner p").html());
+				  break;
+				case 4:
+				  $("#day-3Page").attr("class","weatherPage invisiblePage");
+				  $("#day-2Page").attr("class","weatherPage invisiblePage");
+				  $("#day-1Page").attr("class","weatherPage invisiblePage");
+				  $("#presentPage").attr("class","weatherPage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");
+				  $("div.controlContainer").css("background-color",$("#presentPage").css("background-color"));
+				  $(".red-bar.handle h1").html($("#presentPage .dateContainer.rightCorner p:first-child").html());
+				  $(".red-bar-corner-label").html("");
+				  break;
+				case 5:
+				  $("#day-3Page").attr("class","weatherPage invisiblePage");
+				  $("#day-2Page").attr("class","weatherPage invisiblePage");
+				  $("#day-1Page").attr("class","weatherPage invisiblePage");
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");
+				  $("div.controlContainer").css("background-color",$("#day1Page").css("background-color"));				  
+				  $(".red-bar.handle h1").html($("#day1Page .dateContainer.rightCorner p:first-child").html());
+				  $(".red-bar-corner-label").html($("#day1Page .dateContainer.leftCorner p").html());
+				  break;
+				case 6:
+				  $("#day-3Page").attr("class","weatherPage invisiblePage");
+				  $("#day-2Page").attr("class","weatherPage invisiblePage");
+				  $("#day-1Page").attr("class","weatherPage invisiblePage");
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");	
+				  $("div.controlContainer").css("background-color",$("#day2Page").css("background-color"));	
+				  $(".red-bar.handle h1").html($("#day2Page .dateContainer.rightCorner p:first-child").html());
+				  $(".red-bar-corner-label").html($("#day1Page .dateContainer.leftCorner p").html());
+			  
+				  break;
+				case 7:
+				  $("#day-3Page").attr("class","weatherPage invisiblePage");
+				  $("#day-2Page").attr("class","weatherPage invisiblePage");
+				  $("#day-1Page").attr("class","weatherPage invisiblePage");
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");	
+				  $("div.controlContainer").css("background-color",$("#day3Page").css("background-color"));	
+				  $(".red-bar.handle h1").html($("#day3Page .dateContainer.rightCorner p:first-child").html());
+				  $(".red-bar-corner-label").html($("#day1Page .dateContainer.leftCorner p").html());
+			  
+				  break;
+				case 8:
+				  $("#day-3Page").attr("class","weatherPage invisiblePage");
+				  $("#day-2Page").attr("class","weatherPage invisiblePage");
+				  $("#day-1Page").attr("class","weatherPage invisiblePage");
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage");
+				  $("#day5Page").attr("class","weatherPage invisiblePage");	
+				  $("div.controlContainer").css("background-color",$("#day4Page").css("background-color"));	
+				  $(".red-bar.handle h1").html($("#day4Page .dateContainer.rightCorner p:first-child").html());	
+				  $(".red-bar-corner-label").html($("#day1Page .dateContainer.leftCorner p").html());		  
+				  break;
+				case 9:
+				  $("#day-3Page").attr("class","weatherPage invisiblePage");
+				  $("#day-2Page").attr("class","weatherPage invisiblePage");
+				  $("#day-1Page").attr("class","weatherPage invisiblePage");
+				  $("#presentPage").attr("class","weatherPage invisiblePage");
+				  $("#day1Page").attr("class","weatherPage invisiblePage");
+				  $("#day2Page").attr("class","weatherPage invisiblePage");
+				  $("#day3Page").attr("class","weatherPage invisiblePage");
+				  $("#day4Page").attr("class","weatherPage invisiblePage");
+				  $("#day5Page").attr("class","weatherPage");
+				  $("div.controlContainer").css("background-color",$("#day5Page").css("background-color"));	
+				  $(".red-bar.handle h1").html($("#day5Page .dateContainer.rightCorner p:first-child").html());
+				  $(".red-bar-corner-label").html($("#day1Page .dateContainer.leftCorner p").html());				  
+				  break;
+				default:
+				  break;
+			}
+		}
+	});
+
 };
 	
 
@@ -156,8 +259,6 @@ function updateWeatherPage(dayNumber, sPageId,forecastData){
 	// 접힌부분 색깔, 크기 조정
 	$(sPresentPage+" div.shadow-left").css("height",String($(document).width()/2.5+5)+"px");
 	$(sPresentPage+" div.shadow-left").css("background-color",$(sPresentPage).css("background-color"));
- 
-
 }
 
 function extractWeatherInfo(forecastData,date){
@@ -232,4 +333,6 @@ function resizeComponents(){
 
 	// 개별페이지 크기 (컨트롤 파트제외)
 	$(".pageContainer").css("height",String($(window).height()-100)+ "px");
+
+
 }

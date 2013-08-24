@@ -10,12 +10,19 @@
 .dragdealer {
 	position: relative;
 	height: 60px;
-	background: #EEE;
+    background:#ccc;
+    background:-moz-linear-gradient(top, #ccc, #eee);
+    background:-webkit-gradient(linear,0 0, 0 100%, from(#ccc), to(#eee));
+    box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+    -moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+    -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+	
 }
 .dragdealer .handle {
 	position: absolute;
 	cursor: pointer;
 }
+/*
 .dragdealer .red-bar {
 	width: 100px;
 	height: 60px;
@@ -23,6 +30,31 @@
 	color: #FFF;
 	line-height: 60px;
 	text-align: center;
+}
+*/
+.dragdealer .red-bar {
+	width: 100px;
+	height: 60px;
+	color: #000;
+	text-align: center;
+	
+   background:#fff;
+    background:-moz-linear-gradient(top, #fff, #eee);
+    background:-webkit-gradient(linear,0 0, 0 100%, from(#fff), to(#eee));
+    box-shadow:inset 0 0 0 1px #fff;
+    -moz-box-shadow:inset 0 0 0 1px #fff;
+    -webkit-box-shadow:inset 0 0 0 1px #fff;
+
+	
+}
+.red-bar.handle h1{
+	line-height: 60px;
+}
+.red-bar-corner-label {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	color: #AAA;
 }
 .dragdealer .disabled {
 	background: #898989;
