@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+    xmlns:gap = "http://phonegap.com/ns/1.0"
+    id        = "com.yonseieyes.colorDiff"
+    version   = "0.5.0">
+
+    <!-- versionCode is optional and Android only -->
+	<preference name="orientation" value="portrait" />
+	<preference name="webviewbounce" value="false" />
+    <name>colorDiff</name>
+
+    <description>
+        It shows temperature differences by colors.
+    </description>
+
+    <author email="happyhj@gmail.com">
+        Kim Hee Jae 
+    </author>	 
+</widget>
