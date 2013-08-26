@@ -76,6 +76,13 @@ function showWeather(position)
 		updateWeatherPage(0,"#day-1Page",res2[0]);
 		updateWeatherPage(0,"#day-2Page",res3[0]);
 		updateWeatherPage(0,"#day-3Page",res4[0]);
+	
+		var day_n1_temp = extractWeatherInfo(res2[0],0).temperatureMax;
+		localStorage.setItem('day_n1_temp', day_n1_temp);	
+		var day_n2_temp = extractWeatherInfo(res3[0],0).temperatureMax;
+		localStorage.setItem('day_n2_temp', day_n2_temp);		
+		var day_n3_temp = extractWeatherInfo(res4[0],0).temperatureMax;
+		localStorage.setItem('day_n3_temp', day_n3_temp);		
 		
 		printWeatherComponents();
 		resizeComponents();
@@ -95,6 +102,9 @@ function printWeatherComponents(){
 	var today_temp = extractWeatherInfo(forecastData,0).temperatureMax;
 	localStorage.setItem('today_temp', today_temp);
 
+	updateWeatherPage(0,"#day-3Page",forecastData);
+	updateWeatherPage(0,"#day-2Page",forecastData);
+	updateWeatherPage(0,"#day-1Page",forecastData);
 	updateWeatherPage(0,"#presentPage",forecastData);
 	updateWeatherPage(1,"#day1Page",forecastData);
 	updateWeatherPage(2,"#day2Page",forecastData);
@@ -108,6 +118,8 @@ function printWeatherComponents(){
 	$("div.controlContainer").css("background-color",$("#presentPage").css("background-color"));					  
 	// 화면 콤포넌트 크기 조정
 	resizeComponents();
+	
+	var greenScale2 ;
 	
 	new Dragdealer('magnifier',
 	{
@@ -130,6 +142,10 @@ function printWeatherComponents(){
 				  $("div.controlContainer").css("background-color",$("#day-3Page").css("background-color"));
 				  $(".red-bar.handle h1").html($("#day-3Page .dateContainer.rightCorner p:first-child").html());
 				  $(".red-bar-corner-label").html($("#day-3Page .dateContainer.leftCorner p").html());
+					// 구석삼각형 색 설정	 
+					greenScale2 = 210-(localStorage.getItem('day_n3_temp')-20)*8;
+					$("#day-3Page div.arrow-left").css("border-right-color","rgb(240,"+String(greenScale2)+",0)");	
+
 				  break;
 				case 2:
 				  $("#day-3Page").attr("class","weatherPage invisiblePage");
@@ -144,6 +160,9 @@ function printWeatherComponents(){
 				  $("div.controlContainer").css("background-color",$("#day-2Page").css("background-color"));
 				  $(".red-bar.handle h1").html($("#day-2Page .dateContainer.rightCorner p:first-child").html());
 				  $(".red-bar-corner-label").html($("#day-2Page .dateContainer.leftCorner p").html());
+					// 구석삼각형 색 설정	 
+					greenScale2 = 210-(localStorage.getItem('day_n2_temp')-20)*8;
+					$("#day-3Page div.arrow-left").css("border-right-color","rgb(240,"+String(greenScale2)+",0)");	
 				  break;
 				case 3:
 				  $("#day-3Page").attr("class","weatherPage invisiblePage");
@@ -158,6 +177,9 @@ function printWeatherComponents(){
 				  $("div.controlContainer").css("background-color",$("#day-1Page").css("background-color"));
 				  $(".red-bar.handle h1").html($("#day-1Page .dateContainer.rightCorner p:first-child").html());
 				  $(".red-bar-corner-label").html($("#day-1Page .dateContainer.leftCorner p").html());
+					// 구석삼각형 색 설정	 
+					greenScale2 = 210-(localStorage.getItem('day_n1_temp')-20)*8;
+					$("#day-3Page div.arrow-left").css("border-right-color","rgb(240,"+String(greenScale2)+",0)");	
 				  break;
 				case 4:
 				  $("#day-3Page").attr("class","weatherPage invisiblePage");
@@ -309,6 +331,9 @@ function getWeatherIconCode(present) {
 	case 'partly-cloudy-day':
 	  return 'H';
 	  break;
+	case 'partly-cloudy-night':
+	  return 'I';
+	  break;
 	case 'rain':
 	  return 'R';
 	  break;
@@ -321,6 +346,12 @@ function getWeatherIconCode(present) {
 	case 'wind':
 	  return 'F';
 	  break;
+	case 'fog':
+	  return 'F';
+	  break;;
+	case 'cloudy':
+	  return 'F';
+	  break;  
 	default:
 	  return 'A';
 	}	
@@ -347,6 +378,14 @@ function resizeComponents(){
 	var greenScale2 = 210-(localStorage.getItem('today_temp')-20)*8;
 	$("div.arrow-left").css("border-right-color","rgb(240,"+String(greenScale2)+",0)");	
 
+
+	// 구석삼각형 위치 설정	 
+//	$("#test").css("margin-top", String(vertivalShiftCoefficient*2)+"px");
+//	$("#test").css("margin-left", horizontalShiftCoefficient.toString()+"px");
+	$("div.division.shadow-left").css("margin-top", String(vertivalShiftCoefficient*0.85)+"px");
+	$("div.division.shadow-left").css("margin-left", (horizontalShiftCoefficient*2.5).toString()+"px");
+	$("div.division.shadow-left").css("-webkit-transform", "rotate(45deg)");
+	$("div.division.shadow-left").css("height",String($(document).width()/2+5)+"px");
 
 	// 개별페이지 크기 (컨트롤 파트제외)
 	$(".pageContainer").css("height",String($(window).height()-100)+ "px");
