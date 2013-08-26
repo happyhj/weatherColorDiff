@@ -30,6 +30,11 @@ div.arrow-left {
 	-webkit-transform:rotate(45deg);	
 	z-index: 13;
 }
+div.division.shadow-left {
+	border: 5px solid rgba(255,255,255,0.5);
+	width: 40%;
+}
+
 div.shadow-left {
 	position: absolute;
 	width:35%; 
